@@ -1,62 +1,30 @@
 import { Router } from "express";
+import {
+    getStudents,
+    getStudentById,
+    createStudent,
+    updateStudent,
+    deleteStudent,
+    } from "../controllers/students.controller.js";
+
+
 
 const studentsRountes = Router();
 
-studentsRountes.get("/", (req, res) => {
-    return res.status(200).send({
-        mensagem: "Get all students",
-    });
-    });
-    studentsRountes.get("/:id", (req, res) => {
-    const id = req.params.id;
-    return res.status(200).send({
-        mensagem: `Get student with id ${id}`,
-    });
-    });
-    studentsRountes.post("/", (req, res) => {
-        const {name, email, age} = req.body;
+studentsRountes.get("/", getStudents);
 
-        if (age > 18){
-            return res.status(400).send({
-                message: "age must be greater than 18"
+studentsRountes.get("/:id", getStudentById);
 
-            });
-        }
-    else{
-        return res.status(200).send({
-            mensagem: `Create a student with name ${name} idade ${age} email ${email}`,
-        });
-    }
+studentsRountes.post("/", createStudent);
+
+studentsRountes.put("/:id", updateStudent);
+
+studentsRountes.delete("/:id", deleteStudent);
+
+export default studentsRountes;
 
 
-        if(!name || !email || !age) {
-            return res.status(400).send({
-                mensagem: "Dados inválidos",
-            });
-        }
-    return res.status(200).send({
-        mensagem: `Create a student with name ${name} idade ${age} email ${email}`,
-    });
-    });
 
-    studentsRountes.put("/:id", (req, res) => {
-    const { id } = req.params;
-    const {name, email, age} = req.body;
-    if(!name || !email || !age) {
-        return res.status(400).send({
-            mensagem: "Dados inválidos",
-        });
-    }
-    return res.status(200).send({
-        mensagem: `Update student with id ${id} with name ${name} idade ${age} email ${email}`,
-    });
-    }
-    );
-    studentsRountes.delete("/:id", (req, res) => {
-    const id = req.params.id;
-    return res.status(200).send({
-        mensagem: `Delete student with id ${id}`,
-    });
-    });
-    export default studentsRountes;
 
+
+      
