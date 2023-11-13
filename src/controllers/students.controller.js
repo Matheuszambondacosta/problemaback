@@ -10,9 +10,9 @@ export const getStudentById = (req, res) => {
     });
     }
 export const createStudent = (req, res) => {
-    const {name, email, age} = req.body;
+    const {name, description, course} = req.body;
 
-    if (age > 18){
+    if (course > 18){
         return res.status(400).send({
             message: "age must be greater than 18"
 
@@ -20,21 +20,21 @@ export const createStudent = (req, res) => {
     }
 else{
     return res.status(200).send({
-        mensagem: `Create a student with name ${name} idade ${age} email ${email}`,
+        mensagem: `Criou estudante com o nome ${name} curso ${course} descrição ${description}`,
     });
 }
 }
 
 export const updateStudent = (req, res) => {
     const { id } = req.params;
-    const {name, email, age} = req.body;
-    if(!name || !email || !age) {
+    const {name, description, course} = req.body;
+    if(!name || !description || !course) {
         return res.status(400).send({
             mensagem: "Dados inválidos",
         });
     }
     return res.status(200).send({
-        mensagem: `Update student with id ${id} with name ${name} idade ${age} email ${email}`,
+        mensagem: `Update student with id ${id} with name ${name} idade ${course} email ${description}`,
     });
     }
 
@@ -44,4 +44,3 @@ export const deleteStudent = (req, res) => {
         mensagem: `Delete student with id ${id}`,
     });
     }
-    
