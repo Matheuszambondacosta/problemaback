@@ -16,6 +16,19 @@ studentsRountes.get("/", (req, res) => {
     studentsRountes.post("/", (req, res) => {
         const {name, email, age} = req.body;
 
+        if (age > 18){
+            return res.status(400).send({
+                message: "age must be greater than 18"
+
+            });
+        }
+    else{
+        return res.status(200).send({
+            mensagem: `Create a student with name ${name} idade ${age} email ${email}`,
+        });
+    }
+
+
         if(!name || !email || !age) {
             return res.status(400).send({
                 mensagem: "Dados inválidos",
@@ -39,5 +52,11 @@ studentsRountes.get("/", (req, res) => {
     });
     }
     );
+    studentsRountes.delete("/:id", (req, res) => {
+    const id = req.params.id;
+    return res.status(200).send({
+        mensagem: `Delete student with id ${id}`,
+    });
+    });
     export default studentsRountes;
 
